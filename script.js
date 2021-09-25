@@ -49,7 +49,7 @@ const requestAPI = async () => {
     await product.results.forEach((element) => {
       const { id, title, thumbnail } = element;
       console.log({ id, title, thumbnail });
-      sectionItems.appendChild(createProductItemElement({ id, title, thumbnail }));
+      sectionItems.appendChild(createProductItemElement({ sku: id, name: title, image: thumbnail }));
     });
     // console.log(product.results[0].title);
     // const { results } = await product;
@@ -67,5 +67,4 @@ const requestAPI = async () => {
 
 window.onload = () => {
   requestAPI();
-  
 };
