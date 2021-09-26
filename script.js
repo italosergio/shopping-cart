@@ -28,7 +28,7 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) {
+function cartItemClickListener() {
     
 }
 
@@ -90,7 +90,6 @@ const requestAPI = async () => {
     // console.log(product);
     listItems(product);
     // addCart({ sku: id, name: title, salePrice: price });
-
   } catch (error) {
     console.log(error);
   }
