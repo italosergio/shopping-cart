@@ -28,9 +28,14 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+const innerSumChange = () => {
+  document.querySelector('.total-price').innerText = priceSum();
+};
+
 function cartItemClickListener(event) {
   event.target.remove();
   localStorage.setItem('saveCart', document.querySelector('ol').innerHTML);
+  innerSumChange();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -41,21 +46,22 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const addToCart = (id) => {
+const addToCart = async (id) => {
   const sectionItemsAdd = document.querySelector('.cart__items');
-  fetch(`https://api.mercadolibre.com/items/${id}`)
-  .then((result) => result.json())
-  .then(({ id: sku, title: name, price: salePrice }) => {
-    const cartItem = createCartItemElement({ sku, name, salePrice });
-    console.log(cartItem);
-    console.log(sectionItemsAdd);
+  try {
+    const results = await fetch(`https://api.mercadolibre.com/items/${id}`);
+    const jsonResult = await results.json();
+    const { id: sku, title: name, price: salePrice } = await jsonResult;
+    const cartItem = await createCartItemElement({ sku, name, salePrice });
     sectionItemsAdd.appendChild(cartItem);
     localStorage.setItem('saveCart', document.querySelector('ol').innerHTML);
-  });
+    innerSumChange();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const listItems = async (product) => {
-  console.log(product);
   const sectionItems = document.querySelector('.items');
   try {
     await product.results.forEach((element) => {
@@ -89,10 +95,20 @@ const reloadPg = () => {
   document.querySelectorAll('li')
   .forEach((element) => element.addEventListener('click', cartItemClickListener));
 };
-reloadPg();
+
+const priceSum = () => {
+  let sum = 0;
+  document.querySelectorAll('li').forEach((element) => {
+    sum += parseFloat(element.innerText.split('$').pop());
+  });
+  return sum;
+};
 
 window.onload = () => {
   requestAPI();
+  reloadPg();
+  priceSum();
+  innerSumChange();
 
   // document.querySelector('body').addEventListener('click', (ev) => console.log(ev.target));
 };
