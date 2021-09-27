@@ -55,3 +55,26 @@
   font-size: 16pt;
   text-align: center;
 }
+
+body {
+ margin: auto;
+}
+
+.load {
+  display: flex;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  /* padding: 10% 50%; */
+  z-index: 99;
+  background-color:rgb(201, 209, 255);
+  justify-content: center;
+  align-items: center;
+  padding: none;
+
+  /* border: 1px black solid; */
+}
+
+.loading {
+  font-size: 300px;
+}

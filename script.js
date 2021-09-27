@@ -70,6 +70,10 @@ const addToCart = async (id) => {
   }
 };
 
+const removeLoading = () => {
+  document.querySelector('.load').remove();
+};
+
 const listItems = async (product) => {
   const sectionItems = document.querySelector('.items');
   try {
@@ -83,6 +87,8 @@ const listItems = async (product) => {
         addToCart(ids);
       });
     });
+    removeLoading();
+    
   } catch (error) {
     console.log(error);
   }
@@ -111,13 +117,11 @@ const toEmptyCart = () => {
     innerSumChange();
   });
 };
-toEmptyCart();
 
 window.onload = () => {
   requestAPI();
   reloadPg();
   priceSum();
   innerSumChange();
-
-  // document.querySelector('body').addEventListener('click', (ev) => console.log(ev.target));
+  toEmptyCart();
 };
