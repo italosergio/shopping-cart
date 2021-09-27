@@ -88,7 +88,6 @@ const listItems = async (product) => {
       });
     });
     removeLoading();
-    
   } catch (error) {
     console.log(error);
   }
