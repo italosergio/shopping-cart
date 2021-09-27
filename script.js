@@ -28,23 +28,23 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-const priceSum = () => {
+const sumValue = () => {
   let sum = 0;
-  document.querySelectorAll('li').forEach((element) => {
-    sum += parseFloat(element.innerText.split('$').pop());
+  document.querySelectorAll('li').forEach((line) => {
+    sum += parseFloat(line.innerText.split('$').pop());
   });
   
   return parseFloat(sum.toFixed(2));
 };
 
-const innerSumChange = () => {
-  document.querySelector('.total-price').innerText = priceSum();
+const priceSum = () => {
+  document.querySelector('.total-price').innerText = sumValue();
 };
 
 function cartItemClickListener(event) {
   event.target.remove();
   localStorage.setItem('saveCart', document.querySelector('ol').innerHTML);
-  innerSumChange();
+  priceSum();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -64,7 +64,7 @@ const addToCart = async (id) => {
     const cartItem = await createCartItemElement({ sku, name, salePrice });
     sectionItemsAdd.appendChild(cartItem);
     localStorage.setItem('saveCart', document.querySelector('ol').innerHTML);
-    innerSumChange();
+    priceSum();
   } catch (error) {
     console.log(error);
   }
@@ -81,10 +81,10 @@ const listItems = async (product) => {
       const { id, title, thumbnail } = element;
       const createItem = createProductItemElement({ sku: id, name: title, image: thumbnail });
       sectionItems.appendChild(createItem);
-      createItem.lastChild.addEventListener('click', (e) => {
-        const event = e.target.parentNode;
-        const ids = getSkuFromProductItem(event);
-        addToCart(ids);
+      createItem.lastChild.addEventListener('click', (event) => {
+        const eventArea = event.target.parentNode;
+        const idTarget = getSkuFromProductItem(eventArea);
+        addToCart(idTarget);
       });
     });
     removeLoading();
@@ -93,7 +93,7 @@ const listItems = async (product) => {
   }
 };
 
-const requestAPI = async () => {
+const mlRequestApiComputer = async () => {
   try {
     const response = await fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador');
     const product = await response.json();
@@ -113,14 +113,14 @@ const toEmptyCart = () => {
   document.querySelector('.empty-cart').addEventListener('click', () => {
     document.querySelector('ol').innerHTML = '';
     localStorage.setItem('saveCart', '');
-    innerSumChange();
+    priceSum();
   });
 };
 
 window.onload = () => {
-  requestAPI();
+  mlRequestApiComputer();
   reloadPg();
+  sumValue();
   priceSum();
-  innerSumChange();
   toEmptyCart();
 };
