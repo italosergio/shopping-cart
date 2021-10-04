@@ -55,9 +55,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.className = 'cart__item list-group-item list-group-item-info mb-1';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
-  // li.addEventListener('mouseover', () => {
-    
-  // })
   return li;
 }
 
