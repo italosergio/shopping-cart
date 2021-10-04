@@ -128,6 +128,6 @@ window.onload = () => {
   toEmptyCart();
 
   if (document.querySelectorAll('li').length) {
-    document.querySelector(button).classList.add('displayNone');
+    document.querySelector('.empty-cart').classList.add('displayNone');
   }
 };
