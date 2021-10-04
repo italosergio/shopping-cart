@@ -58,6 +58,9 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+const showsOnEmptyCart = () => {
+  const msg = document.createCustomElement('div', 'mb-2 btn btn-info', 'adiciona');
+};
 const displayOffEmptyCart = () => {
   document.querySelector('#empty-button').className = 'display-none';
 };
