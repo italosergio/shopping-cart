@@ -19,11 +19,7 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add btn btn-primary', 'Adicionar ao carrinho!'));
-  section.addEventListener('m', (e) => {
-    e.target.className = 'item zoom';
-    e.target,addEventListener('mo')
-  })
-
+  
   return section;
 }
 
