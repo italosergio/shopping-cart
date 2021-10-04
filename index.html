@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <link rel="stylesheet" href="style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
   </head>
 
   <body>
@@ -15,10 +16,13 @@
     <section class="container">
       <section class="items"></section>
       <section class="cart">
-        <span class="cart__title">Carrinho de compras</span>
-        <button class="empty-cart">Esvaziar carrinho</button>
-        <ol class="cart__items"></ol>
-        <div class="total-price"></div>
+        <span class="cart__title p-4 mb-4 bg-info text-dark">Carrinho de compras</span>
+        <button class="empty-cart mb-2 cart__item btn btn-info">Esvaziar carrinho</button>
+        <ol class="cart__items list-group"></ol>
+        <section class="price">
+          <div class="alert alert-success">R$</div>
+          <div class="total-price alert alert-success"></div>
+        </section>
       </section>
     </section>
     <script src="script.js"></script>
